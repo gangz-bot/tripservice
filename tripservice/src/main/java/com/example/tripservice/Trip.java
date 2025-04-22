@@ -20,74 +20,33 @@ public class Trip {
     private String origin;
     private String destination;
 
-    @Transient // Not stored in DB if you keep it as calculated
+    @Transient
     private Duration duration;
 
-    // Getters and setters
+    // Getters and Setters
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
 
-    public Long getId() {
-        return id;
-    }
+    public String getDriverId() { return driverId; }
+    public void setDriverId(String driverId) { this.driverId = driverId; }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+    public String getRiderId() { return riderId; }
+    public void setRiderId(String riderId) { this.riderId = riderId; }
 
-    public String getDriverId() {
-        return driverId;
-    }
+    public LocalDateTime getStartTime() { return startTime; }
+    public void setStartTime(LocalDateTime startTime) { this.startTime = startTime; }
 
-    public void setDriverId(String driverId) {
-        this.driverId = driverId;
-    }
+    public LocalDateTime getEndTime() { return endTime; }
+    public void setEndTime(LocalDateTime endTime) { this.endTime = endTime; }
 
-    public String getRiderId() {
-        return riderId;
-    }
+    public double getCost() { return cost; }
+    public void setCost(double cost) { this.cost = cost; }
 
-    public void setRiderId(String riderId) {
-        this.riderId = riderId;
-    }
+    public String getOrigin() { return origin; }
+    public void setOrigin(String origin) { this.origin = origin; }
 
-    public LocalDateTime getStartTime() {
-        return startTime;
-    }
-
-    public void setStartTime(LocalDateTime startTime) {
-        this.startTime = startTime;
-    }
-
-    public LocalDateTime getEndTime() {
-        return endTime;
-    }
-
-    public void setEndTime(LocalDateTime endTime) {
-        this.endTime = endTime;
-    }
-
-    public double getCost() {
-        return cost;
-    }
-
-    public void setCost(double cost) {
-        this.cost = cost;
-    }
-
-    public String getOrigin() {
-        return origin;
-    }
-
-    public void setOrigin(String origin) {
-        this.origin = origin;
-    }
-
-    public String getDestination() {
-        return destination;
-    }
-
-    public void setDestination(String destination) {
-        this.destination = destination;
-    }
+    public String getDestination() { return destination; }
+    public void setDestination(String destination) { this.destination = destination; }
 
     public Duration getDuration() {
         if (startTime != null && endTime != null) {

@@ -10,36 +10,34 @@ import java.util.List;
 public class TripController {
 
     @Autowired
-    private TripRepository tripRepository;
+    private TripService tripService;
 
-    @PostMapping
+    @PostMapping("/start")
     public Trip createTrip(@RequestBody Trip trip) {
-        return tripRepository.save(trip);
+        if (trip.getOrigin() == null || trip.getDestination() == null || trip.getRiderId() == null) {
+            throw new IllegalArgumentException("Origin, destination, and riderId are required");
+        }
+
+        return tripService.startTrip(trip.getRiderId(), trip.getOrigin(), trip.getDestination());
     }
 
-    @GetMapping
-    public List<Trip> getAllTrips() {
-        return tripRepository.findAll();
+    @PutMapping("/end/{id}")
+    public Trip endTrip(@PathVariable Long id) {
+        return tripService.endTrip(id);
     }
 
     @GetMapping("/{id}")
     public Trip getTripById(@PathVariable Long id) {
-        return tripRepository.findById(id).orElse(null);
+        return tripService.getTrip(id);
     }
 
-    @PutMapping("/{id}")
-    public Trip updateTrip(@PathVariable Long id, @RequestBody Trip updatedTrip) {
-        return tripRepository.findById(id).map(trip -> {
-            trip.setOrigin(updatedTrip.getOrigin());
-            trip.setDestination(updatedTrip.getDestination());
-            trip.setDuration(updatedTrip.getDuration());
-            trip.setCost(updatedTrip.getCost());
-            return tripRepository.save(trip);
-        }).orElse(null);
+    @GetMapping
+    public List<Trip> getAllTrips() {
+        return tripService.getAllTrips();
     }
 
     @DeleteMapping("/{id}")
     public void deleteTrip(@PathVariable Long id) {
-        tripRepository.deleteById(id);
+        // Optional delete
     }
 }
